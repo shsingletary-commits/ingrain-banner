@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ingrain AI Banner</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .banner {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    height: 220px;
+    background: linear-gradient(135deg, #050d1a 0%, #0a1628 50%, #060e1c 100%);
+    border-radius: 14px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    padding: 0 48px;
+    box-shadow: 0 0 60px rgba(0, 120, 255, 0.15);
+    border: 1px solid rgba(0, 140, 255, 0.15);
+  }
+
+  canvas {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    opacity: 0.5;
+  }
+
+  .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.25;
+    animation: pulse 6s ease-in-out infinite alternate;
+  }
+  .orb1 { width: 300px; height: 300px; background: radial-gradient(circle, #0057ff, transparent); top: -80px; left: -60px; }
+  .orb2 { width: 200px; height: 200px; background: radial-gradient(circle, #00c3ff, transparent); bottom: -60px; right: 200px; animation-delay: 2s; }
+  .orb3 { width: 150px; height: 150px; background: radial-gradient(circle, #6a00ff, transparent); top: 20px; right: 80px; animation-delay: 4s; }
+
+  @keyframes pulse {
+    from { opacity: 0.2; transform: scale(1); }
+    to   { opacity: 0.35; transform: scale(1.15); }
+  }
+
+  .content {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+  }
+
+  .logo-area {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 4px;
+  }
+
+  .tag {
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(100, 180, 255, 0.8);
+    font-weight: 500;
+  }
+
+  .headline {
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 38px;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1.1;
+    letter-spacing: -0.5px;
+  }
+
+  .headline .highlight {
+    background: linear-gradient(90deg, #4db8ff, #a78bfa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .typewriter-wrap {
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 14px;
+    color: rgba(180, 210, 255, 0.75);
+    letter-spacing: 0.3px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .typewriter-wrap::before {
+    content: '▸';
+    color: #4db8ff;
+    font-size: 10px;
+  }
+
+  #typewriter { border-right: 2px solid #4db8ff; padding-right: 2px; }
+
+  .badge {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 16px 24px;
+    border: 1px solid rgba(77, 184, 255, 0.25);
+    border-radius: 12px;
+    background: rgba(77, 184, 255, 0.05);
+    backdrop-filter: blur(4px);
+    animation: fadeIn 1.5s ease 0.8s forwards;
+    opacity: 0;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .badge-stars {
+    font-size: 22px;
+    letter-spacing: 2px;
+  }
+
+  .badge-text {
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: rgba(150, 200, 255, 0.7);
+    text-align: center;
+    line-height: 1.5;
+  }
+
+  .badge-text strong {
+    display: block;
+    font-size: 13px;
+    color: #fff;
+    letter-spacing: 1px;
+    text-transform: none;
+  }
+</style>
+</head>
+<body>
+<div class="banner">
+  <canvas id="net"></canvas>
+
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+
+  <div class="content">
+    <div class="logo-area">
+      <span class="tag">AI Training Suite</span>
+    </div>
+    <div class="headline">Learning to be <span class="highlight">AI-First</span></div>
+    <div class="typewriter-wrap"><span id="typewriter"></span></div>
+  </div>
+
+  <div class="badge">
+    <div class="badge-stars">⭐⭐⭐</div>
+    <div class="badge-text">
+      <strong>AI SkillsBuilder®</strong>
+      Powered by<br>Ingrain AI™
+    </div>
+  </div>
+</div>
+
+<script>
+  const canvas = document.getElementById('net');
+  const ctx = canvas.getContext('2d');
+  let W, H, nodes = [];
+
+  function resize() {
+    W = canvas.width  = canvas.offsetWidth;
+    H = canvas.height = canvas.offsetHeight;
+  }
+
+  function initNodes(n = 55) {
+    nodes = Array.from({length: n}, () => ({
+      x: Math.random() * W,
+      y: Math.random() * H,
+      vx: (Math.random() - 0.5) * 0.4,
+      vy: (Math.random() - 0.5) * 0.4,
+      r: Math.random() * 1.8 + 0.8
+    }));
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    const maxDist = 130;
+    nodes.forEach(n => {
+      n.x += n.vx; n.y += n.vy;
+      if (n.x < 0 || n.x > W) n.vx *= -1;
+      if (n.y < 0 || n.y > H) n.vy *= -1;
+    });
+    for (let i = 0; i < nodes.length; i++) {
+      for (let j = i + 1; j < nodes.length; j++) {
+        const dx = nodes[i].x - nodes[j].x;
+        const dy = nodes[i].y - nodes[j].y;
+        const d = Math.sqrt(dx*dx + dy*dy);
+        if (d < maxDist) {
+          ctx.beginPath();
+          ctx.strokeStyle = `rgba(77,184,255,${0.18 * (1 - d/maxDist)})`;
+          ctx.lineWidth = 0.6;
+          ctx.moveTo(nodes[i].x, nodes[i].y);
+          ctx.lineTo(nodes[j].x, nodes[j].y);
+          ctx.stroke();
+        }
+      }
+      ctx.beginPath();
+      ctx.arc(nodes[i].x, nodes[i].y, nodes[i].r, 0, Math.PI*2);
+      ctx.fillStyle = 'rgba(100,190,255,0.55)';
+      ctx.fill();
+    }
+    requestAnimationFrame(draw);
+  }
+
+  resize();
+  initNodes();
+  draw();
+  window.addEventListener('resize', () => { resize(); initNodes(); });
+
+  const phrases = [
+    "AI Strategy Canvas® & Scalable Prompt Engineering™",
+    "Build an AI-first culture across your organization",
+    "Train your entire team in 2 months or less",
+    "Role-based tracks for every department"
+  ];
+  let pi = 0, ci = 0, deleting = false;
+  const el = document.getElementById('typewriter');
+
+  function type() {
+    const phrase = phrases[pi];
+    if (!deleting) {
+      el.textContent = phrase.slice(0, ++ci);
+      if (ci === phrase.length) { deleting = true; setTimeout(type, 2200); return; }
+      setTimeout(type, 38);
+    } else {
+      el.textContent = phrase.slice(0, --ci);
+      if (ci === 0) { deleting = false; pi = (pi + 1) % phrases.length; setTimeout(type, 400); return; }
+      setTimeout(type, 18);
+    }
+  }
+  setTimeout(type, 1000);
+</script>
+</body>
+</html>
