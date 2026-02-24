@@ -12,7 +12,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
     overflow: hidden;
   }
 
@@ -27,33 +27,67 @@
     display: flex;
     align-items: center;
     padding: 0 48px;
-    box-shadow: 0 0 60px rgba(0, 120, 255, 0.15);
-    border: 1px solid rgba(0, 140, 255, 0.15);
+    box-shadow: 0 0 60px rgba(0,120,255,0.15);
+    border: 1px solid rgba(0,140,255,0.15);
   }
 
-  canvas {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    opacity: 0.5;
-  }
-
+  /* ── Orbs ── */
   .orb {
     position: absolute;
     border-radius: 50%;
     filter: blur(60px);
-    opacity: 0.25;
     animation: pulse 6s ease-in-out infinite alternate;
   }
-  .orb1 { width: 300px; height: 300px; background: radial-gradient(circle, #0057ff, transparent); top: -80px; left: -60px; }
-  .orb2 { width: 200px; height: 200px; background: radial-gradient(circle, #00c3ff, transparent); bottom: -60px; right: 200px; animation-delay: 2s; }
-  .orb3 { width: 150px; height: 150px; background: radial-gradient(circle, #6a00ff, transparent); top: 20px; right: 80px; animation-delay: 4s; }
+  .orb1 { width:300px;height:300px;background:radial-gradient(circle,#0057ff88,transparent);top:-80px;left:-60px; }
+  .orb2 { width:200px;height:200px;background:radial-gradient(circle,#00c3ff66,transparent);bottom:-60px;right:200px;animation-delay:2s; }
+  .orb3 { width:150px;height:150px;background:radial-gradient(circle,#6a00ff66,transparent);top:20px;right:80px;animation-delay:4s; }
 
   @keyframes pulse {
-    from { opacity: 0.2; transform: scale(1); }
-    to   { opacity: 0.35; transform: scale(1.15); }
+    from { opacity:.2; transform:scale(1); }
+    to   { opacity:.4; transform:scale(1.15); }
   }
 
+  /* ── Floating dots ── */
+  .dots { position:absolute; inset:0; overflow:hidden; }
+  .dot {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(100,190,255,0.55);
+    animation: float linear infinite;
+  }
+  @keyframes float {
+    0%   { transform: translateY(0)   translateX(0); opacity:.6; }
+    50%  { opacity:1; }
+    100% { transform: translateY(-220px) translateX(30px); opacity:0; }
+  }
+
+  /* Generate 24 dots with varied sizes/positions/speeds */
+  .dot:nth-child(1)  { width:3px;height:3px; left:5%;  top:80%; animation-duration:7s;  animation-delay:0s;   }
+  .dot:nth-child(2)  { width:2px;height:2px; left:12%; top:60%; animation-duration:9s;  animation-delay:1s;   }
+  .dot:nth-child(3)  { width:4px;height:4px; left:20%; top:90%; animation-duration:6s;  animation-delay:2s;   }
+  .dot:nth-child(4)  { width:2px;height:2px; left:28%; top:70%; animation-duration:11s; animation-delay:0.5s; }
+  .dot:nth-child(5)  { width:3px;height:3px; left:35%; top:85%; animation-duration:8s;  animation-delay:3s;   }
+  .dot:nth-child(6)  { width:2px;height:2px; left:42%; top:55%; animation-duration:10s; animation-delay:1.5s; }
+  .dot:nth-child(7)  { width:4px;height:4px; left:50%; top:75%; animation-duration:7s;  animation-delay:4s;   }
+  .dot:nth-child(8)  { width:2px;height:2px; left:58%; top:65%; animation-duration:9s;  animation-delay:2.5s; }
+  .dot:nth-child(9)  { width:3px;height:3px; left:65%; top:88%; animation-duration:6s;  animation-delay:0.8s; }
+  .dot:nth-child(10) { width:2px;height:2px; left:72%; top:50%; animation-duration:12s; animation-delay:3.5s; }
+  .dot:nth-child(11) { width:4px;height:4px; left:80%; top:78%; animation-duration:8s;  animation-delay:1.2s; }
+  .dot:nth-child(12) { width:2px;height:2px; left:88%; top:62%; animation-duration:10s; animation-delay:2.8s; }
+  .dot:nth-child(13) { width:3px;height:3px; left:8%;  top:40%; animation-duration:7s;  animation-delay:5s;   }
+  .dot:nth-child(14) { width:2px;height:2px; left:16%; top:30%; animation-duration:9s;  animation-delay:4.5s; }
+  .dot:nth-child(15) { width:3px;height:3px; left:24%; top:45%; animation-duration:11s; animation-delay:6s;   }
+  .dot:nth-child(16) { width:2px;height:2px; left:33%; top:25%; animation-duration:8s;  animation-delay:3.2s; }
+  .dot:nth-child(17) { width:4px;height:4px; left:45%; top:35%; animation-duration:6s;  animation-delay:5.5s; }
+  .dot:nth-child(18) { width:2px;height:2px; left:55%; top:20%; animation-duration:10s; animation-delay:4.2s; }
+  .dot:nth-child(19) { width:3px;height:3px; left:63%; top:42%; animation-duration:7s;  animation-delay:6.5s; }
+  .dot:nth-child(20) { width:2px;height:2px; left:70%; top:28%; animation-duration:9s;  animation-delay:5.8s; }
+  .dot:nth-child(21) { width:4px;height:4px; left:78%; top:38%; animation-duration:8s;  animation-delay:7s;   }
+  .dot:nth-child(22) { width:2px;height:2px; left:85%; top:18%; animation-duration:11s; animation-delay:6.2s; }
+  .dot:nth-child(23) { width:3px;height:3px; left:92%; top:48%; animation-duration:6s;  animation-delay:7.5s; }
+  .dot:nth-child(24) { width:2px;height:2px; left:96%; top:82%; animation-duration:10s; animation-delay:8s;   }
+
+  /* ── Content ── */
   .content {
     position: relative;
     z-index: 10;
@@ -63,29 +97,23 @@
     flex: 1;
   }
 
-  .logo-area {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 4px;
-  }
-
   .tag {
     font-family: 'Segoe UI', sans-serif;
     font-size: 11px;
     letter-spacing: 3px;
     text-transform: uppercase;
-    color: rgba(100, 180, 255, 0.8);
+    color: rgba(100,180,255,0.8);
     font-weight: 500;
+    margin-bottom: 4px;
   }
 
   .headline {
     font-family: 'Segoe UI', sans-serif;
     font-size: 38px;
     font-weight: 700;
-    color: #ffffff;
+    color: #fff;
     line-height: 1.1;
-    letter-spacing: -0.5px;
+    letter-spacing: -.5px;
   }
 
   .headline .highlight {
@@ -95,25 +123,53 @@
     background-clip: text;
   }
 
+  /* ── CSS Typewriter ── */
   .typewriter-wrap {
     font-family: 'Segoe UI', sans-serif;
     font-size: 14px;
-    color: rgba(180, 210, 255, 0.75);
-    letter-spacing: 0.3px;
-    height: 20px;
+    color: rgba(180,210,255,0.75);
+    height: 22px;
     display: flex;
     align-items: center;
     gap: 6px;
+    overflow: hidden;
+    position: relative;
   }
 
   .typewriter-wrap::before {
     content: '▸';
     color: #4db8ff;
     font-size: 10px;
+    flex-shrink: 0;
   }
 
-  #typewriter { border-right: 2px solid #4db8ff; padding-right: 2px; }
+  .phrase {
+    position: absolute;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 100%;
+    width: 0;
+    opacity: 0;
+    border-right: 2px solid transparent;
+  }
 
+  .phrase:nth-child(1) { animation: showphrase 24s infinite 0s   both; }
+  .phrase:nth-child(2) { animation: showphrase 24s infinite 6s   both; }
+  .phrase:nth-child(3) { animation: showphrase 24s infinite 12s  both; }
+  .phrase:nth-child(4) { animation: showphrase 24s infinite 18s  both; }
+
+  @keyframes showphrase {
+    0%   { opacity:0; width:0;    border-right-color:transparent; }
+    2%   { opacity:1; width:0;    border-right-color:#4db8ff; }
+    22%  { opacity:1; width:100%; border-right-color:#4db8ff; }
+    22.1%{ opacity:1; width:100%; border-right-color:transparent; }
+    24%  { opacity:1; width:100%; border-right-color:transparent; }
+    24.9%{ opacity:0; width:0;    border-right-color:transparent; }
+    25%  { opacity:0; width:0;    border-right-color:transparent; }
+    100% { opacity:0; width:0;    border-right-color:transparent; }
+  }
+
+  /* ── Badge ── */
   .badge {
     position: relative;
     z-index: 10;
@@ -122,22 +178,27 @@
     align-items: center;
     gap: 8px;
     padding: 16px 24px;
-    border: 1px solid rgba(77, 184, 255, 0.25);
+    border: 1px solid rgba(77,184,255,0.25);
     border-radius: 12px;
-    background: rgba(77, 184, 255, 0.05);
+    background: rgba(77,184,255,0.05);
     backdrop-filter: blur(4px);
-    animation: fadeIn 1.5s ease 0.8s forwards;
-    opacity: 0;
+    animation: fadeIn 1.5s ease 0.8s both;
   }
 
   @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(8px); }
-    to   { opacity: 1; transform: translateY(0); }
+    from { opacity:0; transform:translateY(8px); }
+    to   { opacity:1; transform:translateY(0); }
   }
 
   .badge-stars {
-    font-size: 22px;
-    letter-spacing: 2px;
+    font-size: 20px;
+    letter-spacing: 3px;
+    animation: starGlow 2s ease-in-out infinite alternate;
+  }
+
+  @keyframes starGlow {
+    from { filter: brightness(1); }
+    to   { filter: brightness(1.6) drop-shadow(0 0 6px #ffd700); }
   }
 
   .badge-text {
@@ -145,7 +206,7 @@
     font-size: 10px;
     text-transform: uppercase;
     letter-spacing: 2px;
-    color: rgba(150, 200, 255, 0.7);
+    color: rgba(150,200,255,0.7);
     text-align: center;
     line-height: 1.5;
   }
@@ -161,18 +222,31 @@
 </head>
 <body>
 <div class="banner">
-  <canvas id="net"></canvas>
 
   <div class="orb orb1"></div>
   <div class="orb orb2"></div>
   <div class="orb orb3"></div>
 
+  <div class="dots">
+    <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+    <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+    <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+    <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+    <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+    <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+    <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+    <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+  </div>
+
   <div class="content">
-    <div class="logo-area">
-      <span class="tag">AI Training Suite</span>
-    </div>
+    <div class="tag">AI Training Suite</div>
     <div class="headline">Learning to be <span class="highlight">AI-First</span></div>
-    <div class="typewriter-wrap"><span id="typewriter"></span></div>
+    <div class="typewriter-wrap">
+        <div class="phrase">AI Strategy Canvas® &amp; Scalable Prompt Engineering™</div>
+        <div class="phrase">Build an AI-first culture across your organization</div>
+        <div class="phrase">Train your entire team in 2 months or less</div>
+        <div class="phrase">Role-based tracks for every department</div>
+    </div>
   </div>
 
   <div class="badge">
@@ -182,85 +256,7 @@
       Powered by<br>Ingrain AI™
     </div>
   </div>
+
 </div>
-
-<script>
-  const canvas = document.getElementById('net');
-  const ctx = canvas.getContext('2d');
-  let W, H, nodes = [];
-
-  function resize() {
-    W = canvas.width  = canvas.offsetWidth;
-    H = canvas.height = canvas.offsetHeight;
-  }
-
-  function initNodes(n = 55) {
-    nodes = Array.from({length: n}, () => ({
-      x: Math.random() * W,
-      y: Math.random() * H,
-      vx: (Math.random() - 0.5) * 0.4,
-      vy: (Math.random() - 0.5) * 0.4,
-      r: Math.random() * 1.8 + 0.8
-    }));
-  }
-
-  function draw() {
-    ctx.clearRect(0, 0, W, H);
-    const maxDist = 130;
-    nodes.forEach(n => {
-      n.x += n.vx; n.y += n.vy;
-      if (n.x < 0 || n.x > W) n.vx *= -1;
-      if (n.y < 0 || n.y > H) n.vy *= -1;
-    });
-    for (let i = 0; i < nodes.length; i++) {
-      for (let j = i + 1; j < nodes.length; j++) {
-        const dx = nodes[i].x - nodes[j].x;
-        const dy = nodes[i].y - nodes[j].y;
-        const d = Math.sqrt(dx*dx + dy*dy);
-        if (d < maxDist) {
-          ctx.beginPath();
-          ctx.strokeStyle = `rgba(77,184,255,${0.18 * (1 - d/maxDist)})`;
-          ctx.lineWidth = 0.6;
-          ctx.moveTo(nodes[i].x, nodes[i].y);
-          ctx.lineTo(nodes[j].x, nodes[j].y);
-          ctx.stroke();
-        }
-      }
-      ctx.beginPath();
-      ctx.arc(nodes[i].x, nodes[i].y, nodes[i].r, 0, Math.PI*2);
-      ctx.fillStyle = 'rgba(100,190,255,0.55)';
-      ctx.fill();
-    }
-    requestAnimationFrame(draw);
-  }
-
-  resize();
-  initNodes();
-  draw();
-  window.addEventListener('resize', () => { resize(); initNodes(); });
-
-  const phrases = [
-    "AI Strategy Canvas® & Scalable Prompt Engineering™",
-    "Build an AI-first culture across your organization",
-    "Train your entire team in 2 months or less",
-    "Role-based tracks for every department"
-  ];
-  let pi = 0, ci = 0, deleting = false;
-  const el = document.getElementById('typewriter');
-
-  function type() {
-    const phrase = phrases[pi];
-    if (!deleting) {
-      el.textContent = phrase.slice(0, ++ci);
-      if (ci === phrase.length) { deleting = true; setTimeout(type, 2200); return; }
-      setTimeout(type, 38);
-    } else {
-      el.textContent = phrase.slice(0, --ci);
-      if (ci === 0) { deleting = false; pi = (pi + 1) % phrases.length; setTimeout(type, 400); return; }
-      setTimeout(type, 18);
-    }
-  }
-  setTimeout(type, 1000);
-</script>
 </body>
 </html>
