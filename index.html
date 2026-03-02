@@ -190,15 +190,62 @@
     to   { opacity:1; transform:translateY(0); }
   }
 
-  .badge-stars {
-    font-size: 20px;
-    letter-spacing: 3px;
-    animation: starGlow 2s ease-in-out infinite alternate;
+  /* ── AI Orb Icon ── */
+  .ai-orb {
+    position: relative;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
-  @keyframes starGlow {
-    from { filter: brightness(1); }
-    to   { filter: brightness(1.6) drop-shadow(0 0 6px #ffd700); }
+  .orb-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    animation: spinRing linear infinite;
+  }
+
+  .orb-ring-1 {
+    width: 48px; height: 48px;
+    border-top-color: #4db8ff;
+    border-right-color: rgba(77,184,255,0.3);
+    animation-duration: 2.5s;
+  }
+
+  .orb-ring-2 {
+    width: 36px; height: 36px;
+    border-bottom-color: #a78bfa;
+    border-left-color: rgba(167,139,250,0.3);
+    animation-duration: 1.8s;
+    animation-direction: reverse;
+  }
+
+  .orb-ring-3 {
+    width: 24px; height: 24px;
+    border-top-color: #00c3ff;
+    border-right-color: rgba(0,195,255,0.3);
+    animation-duration: 3.2s;
+  }
+
+  .orb-core {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #fff, #4db8ff);
+    box-shadow: 0 0 8px #4db8ff, 0 0 16px rgba(77,184,255,0.5);
+    animation: coreGlow 2s ease-in-out infinite alternate;
+    z-index: 1;
+  }
+
+  @keyframes spinRing {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+
+  @keyframes coreGlow {
+    from { box-shadow: 0 0 6px #4db8ff, 0 0 12px rgba(77,184,255,0.4); }
+    to   { box-shadow: 0 0 12px #a78bfa, 0 0 24px rgba(167,139,250,0.6); }
   }
 
   .badge-text {
@@ -244,13 +291,18 @@
     <div class="typewriter-wrap">
         <div class="phrase">Build an AI-first culture across your organization</div>
         <div class="phrase">Use the AI Strategy Canvas® to develop your prompt plan</div>
-        <div class="phrase">Impelement Scalable Prompt Engineering™ for consistent results</div>
+        <div class="phrase">Implement Scalable Prompt Engineering™ for consistent results</div>
         <div class="phrase">Train your entire team quickly</div>
     </div>
   </div>
 
   <div class="badge">
-    <div class="badge-stars">⭐⭐⭐</div>
+    <div class="ai-orb">
+      <div class="orb-ring orb-ring-1"></div>
+      <div class="orb-ring orb-ring-2"></div>
+      <div class="orb-ring orb-ring-3"></div>
+      <div class="orb-core"></div>
+    </div>
     <div class="badge-text">
       <strong>AI SkillsBuilder®</strong>
       Powered by<br>Ingrain AI™
@@ -260,4 +312,3 @@
 </div>
 </body>
 </html>
-
